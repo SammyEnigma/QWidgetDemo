@@ -192,6 +192,14 @@ void SaveLog::clear()
     }
 }
 
+void SaveLog::clearContent()
+{
+    currentRow = 0;
+    if (file->isOpen()) {
+        file->resize(0);
+    }
+}
+
 void SaveLog::save(const QString &content)
 {
     //如果重定向输出到网络则通过网络发出去,否则输出到日志文件

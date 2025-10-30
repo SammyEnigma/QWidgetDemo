@@ -197,15 +197,16 @@ QString QtHelperData::getXorEncryptDecrypt(const QString &value, char key)
     for (int i = 0; i < result.length(); ++i) {
         result[i] = QChar(result.at(i).toLatin1() ^ key);
     }
+
     return result;
 }
 
 quint8 QtHelperData::getOrCode(const QByteArray &data)
 {
-    int len = data.length();
     quint8 result = 0;
+    int len = data.length();
     for (int i = 0; i < len; ++i) {
-        result ^= data.at(i);
+        result ^= (quint8)data.at(i);
     }
 
     return result;
@@ -213,13 +214,13 @@ quint8 QtHelperData::getOrCode(const QByteArray &data)
 
 quint8 QtHelperData::getCheckCode(const QByteArray &data)
 {
+    quint8 result = 0;
     int len = data.length();
-    quint8 temp = 0;
     for (int i = 0; i < len; ++i) {
-        temp += data.at(i);
+        result += (quint8)data.at(i);
     }
 
-    return temp % 256;
+    return result % 256;
 }
 
 void QtHelperData::getFullData(QByteArray &buffer)
@@ -363,13 +364,13 @@ QString QtHelperData::byteArrayToAsciiStr(const QByteArray &data)
     QString temp;
     int len = data.length();
     for (int i = 0; i < len; ++i) {
-        char byte = data.at(i);
+        int byte = data.at(i);
         QString value = listChar.value(byte);
         if (!value.isEmpty()) {
         } else if (byte >= 0 && byte <= 0x7F) {
             value = QString("%1").arg(byte);
         } else {
-            value = decimalToStrHex((quint8)byte);
+            value = decimalToStrHex(byte);
             value = QString("\\x%1").arg(value.toUpper());
         }
 

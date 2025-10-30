@@ -46,29 +46,10 @@ SaveRunTime::~SaveRunTime()
 
 void SaveRunTime::getDiffValue(const QDateTime &startTime, const QDateTime &endTime, int &day, int &hour, int &minute)
 {
-    qint64 sec = startTime.secsTo(endTime);
-    day = hour = minute = 0;
-    int seconds = 0;
-
-    while (sec > 0) {
-        seconds++;
-        if (seconds == 60) {
-            minute++;
-            seconds = 0;
-        }
-
-        if (minute == 60) {
-            hour++;
-            minute = 0;
-        }
-
-        if (hour == 24) {
-            day++;
-            hour = 0;
-        }
-
-        sec--;
-    }
+    qint64 totalSeconds = startTime.secsTo(endTime);
+    minute = (totalSeconds / 60) % 60;
+    hour = totalSeconds / 3600;
+    day = totalSeconds / (24 * 3600);
 }
 
 void SaveRunTime::start()
