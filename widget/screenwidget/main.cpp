@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-    qputenv("QT_FONT_DPI", "96");
+    //qputenv("QT_FONT_DPI", "96");
     QApplication a(argc, argv);
 
     QFont font;

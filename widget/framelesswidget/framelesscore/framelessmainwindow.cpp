@@ -285,7 +285,7 @@ bool FramelessMainWindow::nativeEvent(const QByteArray &eventType, void *message
             //官方说明在这里 https://docs.microsoft.com/zh-cn/windows/win32/inputdev/wm-nchittest
             qreal ratio = 1.0;
 #if (QT_VERSION >= QT_VERSION_CHECK(5,0,0))
-            ratio = this->devicePixelRatio();
+            ratio = this->devicePixelRatioF();
 #endif
             long x = GET_X_LPARAM(msg->lParam) / ratio;
             long y = GET_Y_LPARAM(msg->lParam) / ratio;
